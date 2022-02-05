@@ -1,0 +1,191 @@
+
+
+---------------------------------------------CREATING TABLE SalesPeople-----------
+CREATE TABLE SalesPeople(
+Snum INT PRIMARY KEY,
+Sname VARCHAR(20) UNIQUE,
+City VARCHAR(20),
+COMM numeric(4,2)
+);
+
+-----------------------------------------------CREATING TABLE Customers--------------
+CREATE TABLE Customers(
+Cnum INT PRIMARY KEY,
+City VARCHAR(20) not null,
+Cname VARCHAR(20),
+Snum INT
+);
+
+-------------------------------------------------CREATING TABLE Orders----------------
+CREATE TABLE Orders(
+Onum INT PRIMARY KEY,
+Amt numeric(7,2),
+Odate datetime,
+Cnum INT,
+Snum INT
+);
+
+-------------------------------------------------ALTER TABLE Customers---------------
+ALTER TABLE Customers
+ADD CONSTRAINT Customers_SalesPeople_FK
+FOREIGN KEY (Snum)
+REFERENCES SalesPeople(Snum);
+
+
+ALTER TABLE ORDERS
+ADD CONSTRAINT ORDERS_Customers_FK
+FOREIGN KEY (Cnum)
+REFERENCES Customers(Cnum);
+
+--------------------------------INSERTING VALUES IN TO SalesPeople TABLE---------------------
+
+INSERT INTO salespeople (Snum, Sname, City, COMM) VALUES (1001, 'Peel', 'London',  0.12);
+INSERT INTO salespeople (SNUM, SNAME, CITY, COMM) VALUES (1002, 'Serres', 'San Jose',  0.13);
+INSERT INTO salespeople (SNUM, SNAME, CITY, COMM) VALUES (1004, 'Motika', 'London',  0.11);
+INSERT INTO salespeople (SNUM, SNAME, CITY, COMM) VALUES (1007, 'Rifkin', 'Barcelona',  0.15);
+INSERT INTO salespeople (SNUM, SNAME, CITY, COMM) VALUES (1003, 'Axelrod', 'New York',  0.10);
+
+--------------------------------INSERTING VALUES IN TO CUSTOMERS TABLE---------------------
+
+INSERT INTO CUSTOMERS (CNUM, CNAME, CITY, SNUM) VALUES (2001, 'Hoffman', 'London', 1001);
+INSERT INTO CUSTOMERS (CNUM, CNAME, CITY, SNUM) VALUES (2002, 'Giovanni', 'Rome', 1003);
+INSERT INTO CUSTOMERS (CNUM, CNAME, CITY, SNUM) VALUES (2003, 'Liu', 'San Jose', 1002);
+INSERT INTO CUSTOMERS (CNUM, CNAME, CITY, SNUM) VALUES (2004, 'Grass', 'Berlin', 1002);
+INSERT INTO CUSTOMERS (CNUM, CNAME, CITY, SNUM) VALUES (2006, 'Clemens', 'London', 1001);
+INSERT INTO CUSTOMERS (CNUM, CNAME, CITY, SNUM) VALUES (2008, 'Cisneros', 'San Jose', 1007);
+INSERT INTO CUSTOMERS (CNUM, CNAME, CITY, SNUM) VALUES (2007, 'Pereira', 'Rome', 1004);
+
+--------------------------------INSERTING VALUES IN TO ORDERS TABLE------------------------------------
+
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3001, 18.69, '1990-03-10', 2008, 1007);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3003, 767.19, '1990-03-10', 2001, 1001);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3002, 1900.10, '1990-03-10', 2007, 1004);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3005, 5160.45, '1990-03-10', 2003, 1002);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3006, 1098.16, '1990-03-10', 2008, 1007);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3009, 1713.23, '1990-04-10', 2002, 1003);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3007, 75.75, '1990-04-10', 2004, 1002);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3008, 4723.00, '1990-05-10', 2006, 1001);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3010, 1309.95, '1990-06-10', 2004, 1002);
+INSERT INTO ORDERS (ONUM, AMT, ODATE, CNUM, SNUM) VALUES (3011, 9891.88, '1990-06-10', 2006, 1001);
+
+-------------------------------------SHOW salespeople TABLE---------------------------------------------
+
+mysql> select * from salespeople;
++------+---------+-----------+------+
+| Snum | Sname   | City      | COMM |
++------+---------+-----------+------+
+| 1001 | Peel    | London    | 0.12 |
+| 1002 | Serres  | San Jose  | 0.13 |
+| 1003 | Axelrod | New York  | 0.10 |
+| 1004 | Motika  | London    | 0.11 |
+| 1007 | Rifkin  | Barcelona | 0.15 |
++------+---------+-----------+------+
+
+-------------------------------------SHOW customers TABLE---------------------------------------------
+
+mysql> select * from customers;
++------+----------+----------+------+
+| Cnum | City     | Cname    | Snum |
++------+----------+----------+------+
+| 2001 | London   | Hoffman  | 1001 |
+| 2002 | Rome     | Giovanni | 1003 |
+| 2003 | San Jose | Liu      | 1002 |
+| 2004 | Berlin   | Grass    | 1002 |
+| 2006 | London   | Clemens  | 1001 |
+| 2007 | Rome     | Pereira  | 1004 |
+| 2008 | San Jose | Cisneros | 1007 |
++------+----------+----------+------+
+
+-------------------------------------SHOW orders TABLE---------------------------------------------
+
+mysql> select * from orders;
++------+---------+---------------------+------+------+
+| Onum | Amt     | Odate               | Cnum | Snum |
++------+---------+---------------------+------+------+
+| 3001 |   18.69 | 1990-03-10 00:00:00 | 2008 | 1007 |
+| 3002 | 1900.10 | 1990-03-10 00:00:00 | 2007 | 1004 |
+| 3003 |  767.19 | 1990-03-10 00:00:00 | 2001 | 1001 |
+| 3005 | 5160.45 | 1990-03-10 00:00:00 | 2003 | 1002 |
+| 3006 | 1098.16 | 1990-03-10 00:00:00 | 2008 | 1007 |
+| 3007 |   75.75 | 1990-04-10 00:00:00 | 2004 | 1002 |
+| 3008 | 4723.00 | 1990-05-10 00:00:00 | 2006 | 1001 |
+| 3009 | 1713.23 | 1990-04-10 00:00:00 | 2002 | 1003 |
+| 3010 | 1309.95 | 1990-06-10 00:00:00 | 2004 | 1002 |
+| 3011 | 9891.88 | 1990-06-10 00:00:00 | 2006 | 1001 |
++------+---------+---------------------+------+------+
+10 rows in set (0.01 sec)
+
+
+----------------------------------------------------------------------------------------------------------
+
+---Q1> Count the number of Salesperson whose name begin with ‘a’/’A’
+
+mysql> Select count(Sname) from salespeople  WHERE Sname LIKE 'A%';
++--------------+
+| count(Sname) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.20 sec)
+
+-----------------------------------------------------------------------------------------------------------------
+
+---Q2> Display all the Salesperson whose all orders worth is more than Rs. 2000.
+
+mysql> SELECT SNUM FROM ORDERS WHERE AMT > 2000;
++------+
+| SNUM |
++------+
+| 1002 |
+| 1001 |
+| 1001 |
++------+
+3 rows in set (0.04 sec)
+
+------------------------------------------------------------------------------------------------------------
+
+----Q3> Count the number of Salesperson belonging to Newyork.
+mysql> Select count(Sname) from salespeople  WHERE City = "New York";
++--------------+
+| count(Sname) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.04 sec)
+
+-------------------------------------------------------------------------------------------------------------
+
+----Q4> Display the number of Salespeople belonging to London and belonging to Paris.
+
+mysql> SELECT * FROM Salespeople WHERE City = "London" OR City = "Paris";
++------+--------+--------+------+
+| Snum | Sname  | City   | COMM |
++------+--------+--------+------+
+| 1001 | Peel   | London | 0.12 |
+| 1004 | Motika | London | 0.11 |
++------+--------+--------+------+
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----Q5> Display the number of orders taken by each Salesperson and their date of orders.
+
+mysql> SELECT odate,snum,COUNT(*) FROM orders GROUP BY odate,snum;
++---------------------+------+----------+
+| odate               | snum | COUNT(*) |
++---------------------+------+----------+
+| 1990-03-10 00:00:00 | 1007 |        2 |
+| 1990-03-10 00:00:00 | 1004 |        1 |
+| 1990-03-10 00:00:00 | 1001 |        1 |
+| 1990-03-10 00:00:00 | 1002 |        1 |
+| 1990-04-10 00:00:00 | 1002 |        1 |
+| 1990-05-10 00:00:00 | 1001 |        1 |
+| 1990-04-10 00:00:00 | 1003 |        1 |
+| 1990-06-10 00:00:00 | 1002 |        1 |
+| 1990-06-10 00:00:00 | 1001 |        1 |
++---------------------+------+----------+
+9 rows in set (0.07 sec)
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
