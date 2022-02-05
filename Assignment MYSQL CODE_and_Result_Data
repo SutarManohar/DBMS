@@ -31,6 +31,7 @@ ADD CONSTRAINT Customers_SalesPeople_FK
 FOREIGN KEY (Snum)
 REFERENCES SalesPeople(Snum);
 
+-------------------------------------------------ALTER TABLE ORDERS---------------
 
 ALTER TABLE ORDERS
 ADD CONSTRAINT ORDERS_Customers_FK
